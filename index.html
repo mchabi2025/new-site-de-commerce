@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>VéloPro Atelier – Réparation de vélos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --a-noir: #111111;
+      --a-gris-fonce: #1e1e1e;
+      --a-jaune: #ffd400;
+      --a-blanc: #ffffff;
+      --b-vert-foret: #0b6b3a;
+      --b-vert-pale: #e8f5e9;
+      --b-bleu-clair: #4db7ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    header {
+      background: var(--a-noir);
+      color: var(--a-blanc);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .logo {
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--a-jaune);
+    }
+
+    nav a {
+      color: var(--a-blanc);
+      margin-left: 24px;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    nav a.btn-nav {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 2px solid var(--a-jaune);
+      color: var(--a-jaune);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 80px;
+    }
+
+    section {
+      margin-bottom: 56px;
+    }
+
+    .hero {
+      background: var(--a-gris-fonce);
+      color: var(--a-blanc);
+      padding: 48px 32px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 24px;
+      color: var(--a-jaune);
+    }
+
+    .btn-primary {
+      background: var(--a-jaune);
+      color: var(--a-noir);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--a-jaune);
+      border: 2px solid var(--a-jaune);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .info-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .info-card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--a-jaune);
+      color: var(--a-noir);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .map-placeholder {
+      background: #ddd;
+      border-radius: 12px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .booking-wrapper {
+      background: var(--b-vert-pale);
+      border-radius: 16px;
+      padding: 24px 24px 32px;
+      border: 1px solid #cde5d4;
+    }
+
+    .booking-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .booking-header h2 {
+      color: var(--b-vert-foret);
+      margin-bottom: 0;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    form input,
+    form select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .hours {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .hour-btn {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--b-vert-foret);
+      background: #ffffff;
+      color: var(--b-vert-foret);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .hour-btn.selected {
+      background: var(--b-vert-foret);
+      color: #ffffff;
+    }
+
+    .booking-actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-confirm {
+      background: var(--b-vert-foret);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .confirmation {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #e3f4ff;
+      border: 1px solid #b7e0ff;
+      display: none;
+    }
+
+    .confirmation strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    footer span {
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">VéloPro Atelier</div>
+    <nav>
+      <a href="#accueil">Accueil</a>
+      <a href="#infos">Infos</a>
+      <a href="#reservation" class="btn-nav">Prendre rendez-vous</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Accueil -->
+    <section id="accueil">
+      <div class="hero">
+        <h1>Réparation de vélos rapide et professionnelle</h1>
+        <p>Ouvert 7 jours — visites sans rendez-vous acceptées.</p>
+        <button class="btn-primary" onclick="scrollToSection('infos')">
+          Voir les informations
+        </button>
+      </div>
+    </section>
+
+    <!-- Infos -->
+    <section id="infos">
+      <h2>Informations pratiques</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Heures d'ouverture</h3>
+          <p>Lundi – Vendredi : 9h – 19h</p>
+          <p>Samedi – Dimanche : 10h – 17h</p>
+        </div>
+        <div class="info-card">
+          <h3>Adresse</h3>
+          <p>123 Rue du Cycliste, Ottawa</p>
+          <div class="map-placeholder">
+            Carte Google Maps (placeholder)
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Sans rendez-vous</h3>
+          <p>Nous acceptons les visites sans rendez-vous aujourd'hui.</p>
+          <span class="badge">Visites sans rendez-vous acceptées</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Réservation -->
+    <section id="reservation">
+      <div class="booking-wrapper">
+        <div class="booking-header">
+          <h2>Prendre rendez-vous</h2>
+          <small>Pour un entretien complet ou une réparation spécifique</small>
+        </div>
+
+        <form id="booking-form" onsubmit="event.preventDefault(); handleBooking();">
+          <div class="booking-grid">
+            <div>
+              <label for="name">Votre nom</label>
+              <input type="text" id="name" placeholder="Ex. Clara Bouchard" required />
+
+              <label for="service">Service</label>
+              <select id="service" required>
+                <option value="">Choisissez un service</option>
+                <option value="Entretien complet">Entretien complet</option>
+                <option value="Réglage des freins">Réglage des freins</option>
+                <option value="Réglage des vitesses">Réglage des vitesses</option>
+                <option value="Changement de pneu">Changement de pneu</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="date">Date</label>
+              <input type="date" id="date" required />
+
+              <label>Heure</label>
+              <div class="hours" id="hours-container">
+                <button type="button" class="hour-btn">10:00</button>
+                <button type="button" class="hour-btn">11:00</button>
+                <button type="button" class="hour-btn">13:00</button>
+                <button type="button" class="hour-btn">14:00</button>
+                <button type="button" class="hour-btn">15:00</button>
+              </div>
+              <input type="hidden" id="hour" required />
+            </div>
+          </div>
+
+          <div class="booking-actions">
+            <button type="submit" class="btn-confirm">Confirmer le rendez-vous</button>
+            <button type="button" class="btn-secondary" onclick="scrollToSection('accueil')">
+              Retour à l'accueil
+            </button>
+          </div>
+        </form>
+
+        <div class="confirmation" id="confirmation">
+          <strong>Votre rendez-vous est confirmé ! ✅</strong>
+          <p id="confirmation-text"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Conçu par <span>Mathias</span> — SEG3525 — VéloPro Atelier
+    </p>
+  </footer>
+
+  <script>
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Gestion de la sélection d'heure
+    const hourButtons = document.querySelectorAll(".hour-btn");
+    const hourInput = document.getElementById("hour");
+
+    hourButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        hourButtons.forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        hourInput.value = btn.textContent.trim();
+      });
+    });
+
+    function handleBooking() {
+      const name = document.getElementById("name").value.trim();
+      const service = document.getElementById("service").value;
+      const date = document.getElementById("date").value;
+      const hour = document.getElementById("hour").value;
+
+      if (!name || !service || !date || !hour) {
+        alert("Merci de remplir tous les champs et de choisir une heure.");
+        return;
+      }
+
+      const confirmation = document.getElementById("confirmation");
+      const text = document.getElementById("confirmation-text");
+
+      const formattedDate = new Date(date).toLocaleDateString("fr-CA", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      text.textContent =
+        name +
+        ", votre rendez-vous pour \"" +
+        service +
+        "\" est prévu le " +
+        formattedDate +
+        " à " +
+        hour +
+        " à VéloPro Atelier, 123 Rue du Cycliste, Ottawa.";
+
+      confirmation.style.display = "block";
+      confirmation.scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
